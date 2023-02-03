@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using ETicaretAPI.Domain.Entities.Common;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data.Common;
@@ -16,7 +17,7 @@ using System.Threading.Tasks;
 
 namespace ETicaretAPI.Application.Repositories
 {
-    public interface IRepository<T> where T : class  //Generic'in alanını sadece 'class' olarak kısalttık.
+    public interface IRepository<T> where T : BaseEntity  //Generic'in alanını sadece 'class' olarak kısalttık.
     {
         DbSet<T> Table { get; }
     }
