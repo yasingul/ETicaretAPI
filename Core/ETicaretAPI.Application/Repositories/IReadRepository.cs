@@ -13,9 +13,9 @@ namespace ETicaretAPI.Application.Repositories
 {
     public interface IReadRepository<T> : IRepository<T> where T : BaseEntity
     {
-        IQueryable<T> GetAll();         //Hangi türdeyse o türde ki tüm verileri getirir.
-        IQueryable<T> GetWhere(Expression<Func<T, bool>> method);       //Şarta uygun olan birden fazla veri elde edilir.
-        Task<T> GetSingleAsync(Expression<Func<T, bool>> method);      //Şarta uygun ilk veriyi getirir. Asenkron çalışırlar bunu isimlendirme de belirtiriz.
-        Task<T> GetByIdAsync(string id);                           //Id'si verilen veriyi getirir. Asenkron çalışırlar bunu isimlendirme de belirtiriz.
+        IQueryable<T> GetAll(bool tracking = true);         //Hangi türdeyse o türde ki tüm verileri getirir.
+        IQueryable<T> GetWhere(Expression<Func<T, bool>> method, bool tracking = true);       //Şarta uygun olan birden fazla veri elde edilir.
+        Task<T> GetSingleAsync(Expression<Func<T, bool>> method, bool tracking = true);      //Şarta uygun ilk veriyi getirir. Asenkron çalışırlar bunu isimlendirme de belirtiriz.
+        Task<T> GetByIdAsync(string id, bool tracking = true);                           //Id'si verilen veriyi getirir. Asenkron çalışırlar bunu isimlendirme de belirtiriz.
     }
 }
