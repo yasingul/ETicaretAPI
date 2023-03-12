@@ -10,7 +10,7 @@ namespace ETicaretAPI.Domain.Entities.Common
     {
         public Guid Id { get; set; }        //Guid = Unique identify'dır
         public DateTime CreatedDay { get; set; }
-
+        public DateTime UpdatedDate { get; set;}
 
     }
 }
