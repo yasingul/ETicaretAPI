@@ -7,6 +7,11 @@ var builder = WebApplication.CreateBuilder(args);
 //IoC konteynýrýn olduðu yapý Services katmanýdýr.
 builder.Services.AddPersistenceServices();      //Uygulamayý ayaða kaldýrdýðýmýzda IoC konteynýr artýk eriþilebilir olacak.
 
+//Cors Politikalarý için gerekli servisi ekledik.
+builder.Services.AddCors(options => options.AddDefaultPolicy(policy =>
+    policy.WithOrigins("http://localhost:4200/", "https://localhost:4200/").AllowAnyHeader().AllowAnyMethod()
+));                     
+
 builder.Services.AddControllers();
 
 builder.Services.AddEndpointsApiExplorer();
@@ -21,6 +26,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseCors();
 app.UseHttpsRedirection();
 
 app.UseAuthorization();

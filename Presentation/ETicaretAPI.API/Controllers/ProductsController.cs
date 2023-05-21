@@ -30,11 +30,12 @@ namespace ETicaretAPI.API.Controllers       //Test işlemlerini burada hallediyo
             _orderReadRepository = orderReadRepository;
         }
         [HttpGet]
-        public async Task Get()
+        public async Task<IActionResult> Get()
         {
-            Order order = await _orderReadRepository.GetByIdAsync("774a3a7d-512f-4dc9-8a3c-83c5b467d985");
-            order.Address = "Antalya";
-            await _orderWriteRepository.SaveAsync();
+            //Order order = await _orderReadRepository.GetByIdAsync("774a3a7d-512f-4dc9-8a3c-83c5b467d985");
+            //order.Address = "Antalya";
+            //await _orderWriteRepository.SaveAsync();
+            return Ok("Meşajını aldım");
         }
     }
 }
