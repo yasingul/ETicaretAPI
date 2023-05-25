@@ -39,6 +39,12 @@ namespace ETicaretAPI.API.Controllers       //Test işlemlerini burada hallediyo
         [HttpPost]
         public async Task<IActionResult> Post(VM_Create_Product model)
         {
+            if(ModelState.IsValid)
+            {
+
+            }
+
+
             //Burada yaptığımız işlemi test amaçlı burada gerçekleştirdik. İlerleyen dönemde bu işlemleri ayrı bir yerden yöneteceğiz.
             await _productWriteRepository.AddAsync(new()
             {
