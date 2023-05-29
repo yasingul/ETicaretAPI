@@ -1,4 +1,5 @@
 ﻿using ETicaretAPI.Application.Repositories;
+using ETicaretAPI.Application.RequestParameters;
 using ETicaretAPI.Application.ViewModels.Products;
 using ETicaretAPI.Domain.Entities;
 using Microsoft.AspNetCore.Http;
@@ -22,10 +23,20 @@ namespace ETicaretAPI.API.Controllers       //Test işlemlerini burada hallediyo
             _productReadRepository = productReadRepository;
         }
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> Get([FromQuery]Pagination pagination)
         {
+            var products = _productReadRepository.GetAll(false).Skip(pagination.Size * pagination.Size).Take(pagination.Size).Select(p => new
+            {
+                p.Id,
+                p.Name,
+                p.Stock,
+                p.Price,
+                p.CreatedDay,
+                p.UpdatedDate
+            }).ToList();
+
             //False kullanmamızın sebebi track işlemine gerek duymadığımız için gereksiz track işlemini yapmasını engellememizdir.
-            return Ok(_productReadRepository.GetAll(false));    
+            return Ok(products);    
         }
 
         [HttpGet("{id}")]
@@ -39,12 +50,6 @@ namespace ETicaretAPI.API.Controllers       //Test işlemlerini burada hallediyo
         [HttpPost]
         public async Task<IActionResult> Post(VM_Create_Product model)
         {
-            if(ModelState.IsValid)
-            {
-
-            }
-
-
             //Burada yaptığımız işlemi test amaçlı burada gerçekleştirdik. İlerleyen dönemde bu işlemleri ayrı bir yerden yöneteceğiz.
             await _productWriteRepository.AddAsync(new()
             {
