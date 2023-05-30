@@ -25,7 +25,9 @@ namespace ETicaretAPI.API.Controllers       //Test işlemlerini burada hallediyo
         [HttpGet]
         public async Task<IActionResult> Get([FromQuery]Pagination pagination)
         {
-            var products = _productReadRepository.GetAll(false).Skip(pagination.Size * pagination.Size).Take(pagination.Size).Select(p => new
+            var totalCount = _productReadRepository.GetAll(false).Count();
+
+            var products = _productReadRepository.GetAll(false).Skip(pagination.Page * pagination.Size).Take(pagination.Size).Select(p => new
             {
                 p.Id,
                 p.Name,
@@ -35,8 +37,12 @@ namespace ETicaretAPI.API.Controllers       //Test işlemlerini burada hallediyo
                 p.UpdatedDate
             }).ToList();
 
-            //False kullanmamızın sebebi track işlemine gerek duymadığımız için gereksiz track işlemini yapmasını engellememizdir.
-            return Ok(products);    
+         
+            return Ok(new
+            {
+                totalCount, 
+                products
+            });    
         }
 
         [HttpGet("{id}")]
